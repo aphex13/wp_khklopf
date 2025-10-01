@@ -1,0 +1,651 @@
+/*
+Theme Name: KH Klopf Theme
+Theme URI: https://khklopf.at
+Author: KH Klopf
+Author URI: https://khklopf.at
+Description: A custom, responsive WordPress theme for khklopf.at with Gutenberg support, ACF integration, SEO-optimized markup, and accessible navigation.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: khklopf
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, block-styles, wide-blocks, accessibility-ready
+
+This theme, like WordPress, is licensed under the GPL.
+*/
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --text-color: #333;
+    --text-light: #666;
+    --bg-color: #ffffff;
+    --bg-light: #f8f9fa;
+    --border-color: #e0e0e0;
+    --max-width: 1200px;
+    --spacing: 1.5rem;
+    --header-height: 80px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* ==========================================================================
+   Skip Links (Accessibility)
+   ========================================================================== */
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    z-index: 10000;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+
+.site-header {
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.site-header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem var(--spacing);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.custom-logo-link {
+    display: block;
+    line-height: 0;
+}
+
+.custom-logo {
+    max-height: 60px;
+    width: auto;
+    height: auto;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.site-title a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.site-description {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+/* Navigation */
+.main-navigation {
+    position: relative;
+}
+
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+}
+
+.main-navigation li {
+    position: relative;
+}
+
+.main-navigation a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-navigation a:hover,
+.main-navigation a:focus {
+    color: var(--secondary-color);
+}
+
+.main-navigation .current-menu-item > a,
+.main-navigation .current_page_item > a {
+    color: var(--secondary-color);
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.menu-toggle[aria-expanded="true"] {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* Dropdown Menus */
+.main-navigation ul ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 0;
+}
+
+.main-navigation ul ul li {
+    width: 100%;
+}
+
+.main-navigation ul ul a {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.main-navigation li:hover > ul,
+.main-navigation li:focus-within > ul {
+    display: flex;
+}
+
+/* ==========================================================================
+   Main Content
+   ========================================================================== */
+
+.site-content {
+    max-width: var(--max-width);
+    margin: 2rem auto;
+    padding: 0 var(--spacing);
+}
+
+.content-area {
+    width: 100%;
+}
+
+/* ==========================================================================
+   Posts & Articles
+   ========================================================================== */
+
+article {
+    margin-bottom: 3rem;
+}
+
+.entry-header {
+    margin-bottom: 1.5rem;
+}
+
+.entry-title {
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+}
+
+.entry-title a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.entry-title a:hover,
+.entry-title a:focus {
+    color: var(--secondary-color);
+}
+
+.entry-meta {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.entry-meta a {
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.entry-meta a:hover,
+.entry-meta a:focus {
+    color: var(--secondary-color);
+}
+
+.posted-on,
+.byline,
+.cat-links,
+.tags-links {
+    margin-right: 1rem;
+}
+
+.entry-content {
+    margin-bottom: 1.5rem;
+}
+
+.entry-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.entry-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+.post-thumbnail {
+    margin-bottom: 1.5rem;
+}
+
+.post-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   Archives & Listings
+   ========================================================================== */
+
+.archive-header,
+.page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.archive-title,
+.page-title {
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+}
+
+.archive-description {
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.pagination {
+    margin: 3rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pagination a,
+.pagination span {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover,
+.pagination a:focus {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border-color: var(--secondary-color);
+}
+
+.pagination .current {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+/* ==========================================================================
+   Comments
+   ========================================================================== */
+
+.comments-area {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.comments-title,
+.comment-reply-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.comment-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comment {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--bg-light);
+    border-radius: 4px;
+}
+
+.comment-author {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.comment-metadata {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.comment-content {
+    margin-bottom: 0.5rem;
+}
+
+.reply {
+    font-size: 0.875rem;
+}
+
+.comment-form label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"],
+.comment-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment-form textarea {
+    min-height: 150px;
+}
+
+.comment-form input[type="submit"] {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form input[type="submit"]:hover,
+.comment-form input[type="submit"]:focus {
+    background-color: var(--secondary-color);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    margin-top: 4rem;
+    padding: 2rem var(--spacing);
+}
+
+.footer-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.site-info {
+    font-size: 0.875rem;
+}
+
+.site-info a {
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.site-info a:hover,
+.site-info a:focus {
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   Gutenberg Block Styles
+   ========================================================================== */
+
+.wp-block-image {
+    margin-bottom: 1.5rem;
+}
+
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.wp-block-quote {
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+}
+
+.wp-block-button__link {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.wp-block-button__link:hover,
+.wp-block-button__link:focus {
+    background-color: var(--secondary-color);
+}
+
+.alignwide {
+    max-width: calc(var(--max-width) + 200px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alignfull {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    :root {
+        --spacing: 1rem;
+        --header-height: 60px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-navigation ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        padding: 1rem;
+        gap: 0;
+    }
+
+    .main-navigation.toggled ul {
+        display: flex;
+    }
+
+    .main-navigation li {
+        width: 100%;
+    }
+
+    .main-navigation a {
+        display: block;
+        padding: 0.5rem 0;
+    }
+
+    .main-navigation ul ul {
+        position: static;
+        border: none;
+        box-shadow: none;
+        padding-left: 1rem;
+    }
+
+    .header-container {
+        flex-wrap: wrap;
+    }
+
+    .main-navigation {
+        width: 100%;
+        order: 3;
+    }
+
+    .entry-title {
+        font-size: 1.5rem;
+    }
+
+    .archive-title,
+    .page-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 1.25rem;
+    }
+
+    .custom-logo {
+        max-height: 40px;
+    }
+
+    .entry-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+    background-color: var(--bg-light);
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    clip-path: none;
+    color: var(--text-color);
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000;
+}
